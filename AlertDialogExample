@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/src/animation/animation_controller.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/ticker_provider.dart';
+
+class AlertDialogExample extends StatefulWidget {
+  const AlertDialogExample({super.key});
+
+  @override
+  State<AlertDialogExample> createState() => _AlertDialogExampleState();
+}
+
+class _AlertDialogExampleState extends State<AlertDialogExample>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: ElevatedButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Alert"),
+                  content: Text("Hello this is context"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('OK'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Text('Show Alert'),
+        ),
+      ),
+    );
+  }
+}
